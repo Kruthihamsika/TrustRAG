@@ -21,20 +21,12 @@ It enables accurate extraction of information from technical PDFs using a local 
 ---
 
 ##  Architecture Overview
-PDFs → Chunking → Embeddings → FAISS Index
-↓
-Hybrid Retrieval (Dense + Sparse)
-↓
-Cross-Encoder Reranking
-↓
-Prompt Builder (Strict Extraction Rules)
-↓
-Local LLM (Ollama)
-↓
-Answer + Confidence Score + Sources
+## 🧠 System Architecture
 
+<p align="center">
+  <img src="assets/architecture.png" width="900"/>
+</p>
 ---
-
 ## 📂 Project Structure
 rag_project/
 │
