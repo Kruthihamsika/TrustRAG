@@ -27,7 +27,7 @@ It enables accurate extraction of information from technical PDFs using a local 
   <img src="assets/architecture.png" width="900"/>
 </p>
 ---
-## 📂 Project Structure
+📂 Project Structure
 
 ```
 rag_project/
