@@ -1,60 +1,103 @@
-import json
 import os
-import tiktoken
+import re
+import json
+from PyPDF2 import PdfReader
 
-INPUT_PATH = "data/processed_chunks/extracted_pages.json"
-OUTPUT_PATH = "data/processed_chunks/chunks.json"
+# =========================
+# CONFIG
+# =========================
+RAW_PDF_DIR = "data/raw_pdfs"
+OUTPUT_DIR = "data/processed_chunks"
+OUTPUT_FILE = "chunks.json"
 
-CHUNK_SIZE = 300
-OVERLAP = 50
+CHUNK_SIZE = 800
+CHUNK_OVERLAP = 100
 
-encoder = tiktoken.get_encoding("cl100k_base")
+# =========================
+# CLEANING FUNCTION
+# =========================
+def clean_text(text):
+    # Fix OCR numeric issues like 23.4 miles -> 23,400 miles
+    text = re.sub(r"(\d+)\.(\d+)\s*miles", r"\1,\2 miles", text)
 
+    # Remove excessive whitespace
+    text = re.sub(r"\s+", " ", text)
 
-def chunk_text(text, chunk_size=300, overlap=50):
-    tokens = encoder.encode(text)
+    return text.strip()
+
+# =========================
+# CHUNKING FUNCTION
+# =========================
+def chunk_text(text, source_name, page_number, chunk_id_start):
     chunks = []
-
     start = 0
-    while start < len(tokens):
-        end = start + chunk_size
-        chunk_tokens = tokens[start:end]
-        chunk_text = encoder.decode(chunk_tokens)
-        chunks.append(chunk_text)
-        start += chunk_size - overlap
+    chunk_id = chunk_id_start
 
-    return chunks
+    while start < len(text):
+        end = start + CHUNK_SIZE
+        chunk = text[start:end]
 
+        chunks.append({
+            "chunk_id": chunk_id,
+            "text": chunk,
+            "source": source_name,
+            "page": page_number
+        })
 
+        chunk_id += 1
+        start += CHUNK_SIZE - CHUNK_OVERLAP
+
+    return chunks, chunk_id
+
+# =========================
+# MAIN
+# =========================
 def main():
-    with open(INPUT_PATH, "r", encoding="utf-8") as f:
-        pages = json.load(f)
+
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     all_chunks = []
-    chunk_id = 0
+    chunk_id_counter = 0
 
-    for page in pages:
-        text = page["text"]
-        source = page["source"]
-        page_num = page["page"]
+    pdf_files = [f for f in os.listdir(RAW_PDF_DIR) if f.endswith(".pdf")]
 
-        text_chunks = chunk_text(text)
+    if not pdf_files:
+        print("⚠ No PDFs found in raw_pdfs folder.")
+        return
 
-        for chunk in text_chunks:
-            all_chunks.append({
-                "chunk_id": chunk_id,
-                "source": source,
-                "page": page_num,
-                "text": chunk
-            })
-            chunk_id += 1
+    print(f"📂 Found {len(pdf_files)} PDF files.\n")
 
-    os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
+    for pdf_file in pdf_files:
+        pdf_path = os.path.join(RAW_PDF_DIR, pdf_file)
+        print(f"Processing {pdf_file}...")
 
-    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
-        json.dump(all_chunks, f, indent=2)
+        reader = PdfReader(pdf_path)
 
-    print(f"✅ Created {len(all_chunks)} chunks → {OUTPUT_PATH}")
+        for page_num, page in enumerate(reader.pages, start=1):
+            text = page.extract_text()
+
+            if not text:
+                continue
+
+            text = clean_text(text)
+
+            chunks, chunk_id_counter = chunk_text(
+                text,
+                source_name=pdf_file,
+                page_number=page_num,
+                chunk_id_start=chunk_id_counter
+            )
+
+            all_chunks.extend(chunks)
+
+    # Save ALL chunks to chunks.json
+    output_path = os.path.join(OUTPUT_DIR, OUTPUT_FILE)
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(all_chunks, f, indent=2, ensure_ascii=False)
+
+    print(f"\n✅ Created {len(all_chunks)} cleaned chunks from all PDFs.")
+    print(f"Saved to {output_path}")
 
 
 if __name__ == "__main__":

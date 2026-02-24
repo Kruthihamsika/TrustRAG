@@ -1,6 +1,16 @@
+# Virtual environment
 venv/
+
+# Python cache
 __pycache__/
 *.pyc
-.env
-data/raw_pdfs/*
-!data/raw_pdfs/.gitkeep
+
+# Data files (large / local)
+data/raw_pdfs/
+data/processed_chunks/
+data/*.index
+data/*.npy
+
+# OS files
+.DS_Store
+Thumbs.db
