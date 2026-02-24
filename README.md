@@ -108,19 +108,3 @@ TrustRAG reduces hallucination by:
 - Using hybrid retrieval for better grounding
 
 
-
-## 🖥️ Application Screenshots
-
-### 🔹 Streamlit Interface
-
-<p align="center">
-  <img src="assets/ui_home.png" width="800"/>
-</p>
-
----
-
-### 🔹 Answer with Sources & Confidence
-
-<p align="center">
-  <img src="assets/answer_output.png" width="800"/>
-</p>
