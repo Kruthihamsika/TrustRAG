@@ -107,4 +107,14 @@ TrustRAG reduces hallucination by:
 - Applying confidence scoring based on rerank strength
 - Using hybrid retrieval for better grounding
 
+## 🖥️ Application Screenshots
 
+### 🔹 Streamlit Interface
+
+![UI Screenshot](assets/ui_home.png)
+
+---
+
+### 🔹 Answer with Sources and Confidence
+
+![Answer Screenshot](assets/answer_output.png)
