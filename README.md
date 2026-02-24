@@ -113,11 +113,14 @@ TrustRAG reduces hallucination by:
 
 ### 🔹 Streamlit Interface
 
-![output](assets/Screenshot 2026-02-24 181141.png)
+<p align="center">
+  <img src="assets/ui_home.png" width="800"/>
+</p>
 
 ---
 
-### 🔹 Answer with Sources and Confidence
+### 🔹 Answer with Sources & Confidence
 
-![score](assets/Screenshot 2026-02-24 181149.png)
-
+<p align="center">
+  <img src="assets/answer_output.png" width="800"/>
+</p>
