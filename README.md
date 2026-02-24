@@ -1,4 +1,4 @@
-# 🚀 TrustRAG – Offline Hybrid RAG Assistant
+# 🚀 TrustRAG – A Secure Offline Retrieval-Augmented Generation Framework with Explicit Hallucination Control
 
 TrustRAG is a fully offline, secure Retrieval-Augmented Generation (RAG) system designed for document-grounded question answering with hallucination control, hybrid retrieval, reranking, and confidence scoring.
 
