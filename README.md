@@ -28,25 +28,33 @@ It enables accurate extraction of information from technical PDFs using a local 
 </p>
 ---
 ## 📂 Project Structure
+
+```
 rag_project/
 │
-├── app.py # Streamlit UI
+├── app.py                     
 ├── README.md
+├── requirements.txt
 │
 ├── src/
-│ ├── chunk.py # PDF cleaning & chunking
-│ ├── embed.py # Embedding generation
-│ ├── build_index.py # FAISS index creation
-│ ├── rag.py # Hybrid RAG pipeline
+│   ├── chunk.py              
+│   ├── embed.py               
+│   ├── build_index.py         
+│   ├── search.py             
+│   ├── index.py              
+│   └── rag.py              
 │
 ├── data/
-│ ├── raw_pdfs/
-│ ├── processed_chunks/
-│ └── faiss_index.index
+│   ├── raw_pdfs/            
+│   ├── processed_chunks/     
+│   └── faiss_index.index      
 │
 └── assets/
+    ├── ui_home.png
+    ├── answer_output.png
+    └── architecture.png
+```
 
----
 
 ## ⚙️ Tech Stack
 
