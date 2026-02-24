@@ -6,7 +6,7 @@ It enables accurate extraction of information from technical PDFs using a local 
 
 ---
 
-## 🔥 Key Features
+##  Key Features
 
 - ✅ Fully Offline (Local LLM via Ollama)
 - ✅ Hybrid Retrieval (Dense + BM25 Sparse)
@@ -20,30 +20,7 @@ It enables accurate extraction of information from technical PDFs using a local 
 
 ---
 
-## 🏗️ Architecture Overview
-# 🚀 TrustRAG – Offline Hybrid RAG Assistant
-
-TrustRAG is a fully offline, secure Retrieval-Augmented Generation (RAG) system designed for document-grounded question answering with hallucination control, hybrid retrieval, reranking, and confidence scoring.
-
-It enables accurate extraction of information from technical PDFs using a local LLM (Ollama) without relying on cloud APIs.
-
----
-
-## 🔥 Key Features
-
-- ✅ Fully Offline (Local LLM via Ollama)
-- ✅ Hybrid Retrieval (Dense + BM25 Sparse)
-- ✅ FAISS Vector Indexing
-- ✅ Cross-Encoder Reranking
-- ✅ Hallucination Control Rules
-- ✅ Numeric Answer Verification
-- ✅ Confidence Scoring (Low / Medium / High)
-- ✅ Multi-PDF Support
-- ✅ Streamlit UI Interface
-
----
-
-## 🏗️ Architecture Overview
+##  Architecture Overview
 PDFs → Chunking → Embeddings → FAISS Index
 ↓
 Hybrid Retrieval (Dense + Sparse)
